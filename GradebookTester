@@ -1,0 +1,8 @@
+public class GradebookTester {
+    public static void main(String[] args) {
+        String welcomeDescription = "Welcome to the Student Grade Book Application!";
+        System.out.println(welcomeDescription);
+        Menu menu = new Menu();
+        menu.DisplayMenu();
+ }
+}
