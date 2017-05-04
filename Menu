@@ -1,0 +1,98 @@
+import java.util.Scanner;
+public class Menu {
+        private final String STRING_REP = "---------------\n";   
+        Scanner in = new Scanner(System.in);
+        private int studentYear;
+        private double studentTest1, studentTest2, studentAssignment1, studentAssignment2;
+        private String studentName, studentCurrentName, assignmentName, runApp, runMarks;
+        private Student newStudent;
+        String strName, newName, newPos, assignmentDescription, desc, name;
+        int pointsEarned, pointsTotal, assignments, assign, grade;
+        int count;
+        int X;
+        Gradebook book = new Gradebook(30);
+
+      
+public Menu() {
+        runMarks = "";
+}
+public void DisplayMenu() {
+        String menuError = "";
+        String menuDescription = STRING_REP + "\t" +
+        "[1] Add a student \n" +
+        "[2] Edit a student \n" +
+        "[3] Delete Student \n" +
+        "[4] Add Assignment \n" +
+        "[5] Add grades for an assignment \n" +
+        "[6] Edit grade \n" +
+        "[7] Display data for singular student \n" +
+        "[8] Display all averages \n" +
+        "[9] Exit \n" + STRING_REP + "\t";
+        boolean quit = false;
+        do {   
+            System.out.print(menuDescription + "\nChoose option: ");
+            count++;
+            X = (count + 1);
+            switch (in.nextInt()) {
+                case 1:  createStudent();                       break;
+                case 2:  editStudent();                         break;
+                //case 3:  deleteStudent();                       break;
+                case 4:  newAssignment();                       break;
+                //case 5:  addGrades();                           break;
+                //case 6:  editGrade();                           break;
+                case 7:  displayStudents();                      break;
+                //case 8:  displayAverage();                      break;
+                case 9:  quit = true;                           break;
+                default: menuError = "Invalid Option!!!";       break;
+            }
+            System.out.println(menuError);
+        } while (!quit);
+} 
+public void createStudent() {
+
+            Scanner in = new Scanner(System.in);
+            System.out.print("Student Name: ");
+            studentName = in.nextLine();
+            assignments = 0;
+            book.addStudent(studentName);
+
+
+}
+public void editStudent(){  
+
+            Scanner in = new Scanner(System.in);
+            System.out.print("Student Current Name: ");
+            studentCurrentName = in.nextLine();
+            assignments = 0;
+            assign = 0;
+            desc = "";
+            grade= 0;
+            book.addGrade(name, assign, desc, pointsEarned, pointsTotal);
+
+
+    
+}
+public void displayStudents(){
+            Scanner in = new Scanner(System.in);
+            System.out.print("Student Name: ");
+            studentName = in.nextLine();
+            book.printArray();
+    
+}
+public void newAssignment(){
+
+         System.out.println("Enter first name of student, assignment number, description, points earned, and total points separated by spaces");
+        // read user input
+                Scanner scan = new Scanner(System.in);
+                String name = scan.next();
+                int assign = scan.nextInt();
+                String desc = scan.next();
+                int pointsEarned = scan.nextInt();
+                int pointsTotal = scan.nextInt();
+                // add grade
+                book.addGrade(name, assign, desc, pointsEarned, pointsTotal);
+            
+   
+
+}
+}
