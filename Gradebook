@@ -1,0 +1,113 @@
+public class Gradebook
+{
+    /**
+     * The students in this gradebook.
+     */
+    private Student[] students;
+
+    /**
+     * The number of assignments in this gradebook.
+     */
+    private int numAssignments;
+
+    /**
+     * The number of students a gradebook can hold.
+     */
+    private static final int DEFAULT_MAX_STUDENTS = 2000;
+    
+            int s = 0;
+           
+
+    /**
+     * Creates an empty gradebook that can record grades for the given
+     * number of assignments.
+     *
+     * @param assignments a positive integer giving the number of assignments
+     *        to record grades for
+     */
+    public Gradebook(int numAssignments)
+    {
+        this.numAssignments = numAssignments; // this. specifies shadowed field
+        students = new Student[DEFAULT_MAX_STUDENTS];
+    }
+    
+    /**
+     * Adds the given grade for the given student on the given
+     * assignment.  Assignments are indexed starting with 0.  If the
+     * student has not already been assigned any grades in this
+     * gradebook then the student is added with 0 grades for the other
+     * assignments.
+     *
+     * @param name the name of the student
+     * @param assignment a valid assignment index for this gradebook
+     * @param grade the grade for that student on that assignment
+     */
+    public void addGrade(String name, int assignment, String description, int pointsEarned, int pointsTotal)
+    {
+        // find the student -- here "ran out of things to look through"
+        // can be "walked off the end of the array" (if the gradebook
+        // has the maximum number of students and there wasn't already
+        // a student of the given name in this gradebook) or "found an
+        // empty spot in the array" (if the gradebook wasn't full and hence
+        // there were still null entries in the array that were found
+        // before a student with the given name)
+        while (s < students.length
+               && students[s] != null
+               && !students[s].getName().equals(name))
+            {
+                s++;
+            }
+    
+        // figure out which of the three conditions stopped the loop
+        // 1: didn't find student and no room to add a new one
+        // 2: didn't find the student but found an empty spot to put a new one
+        // 3: found a student with the given name
+        
+        if (s < students.length && students[s] != null)
+            {
+                students[s].addGrade(assignment, pointsEarned, pointsTotal);
+            }
+        else if (s == students.length)
+            {
+                // not found; no room
+                throw new IllegalStateException("Book is full");
+            }
+        else
+            {
+                // not found -- make a new one
+                students[s] = new Student(name, numAssignments);
+                students[s].addGrade(assignment, pointsEarned, pointsTotal);
+            }
+    }
+     public void addStudent(String name)
+     {
+         students[s] = new Student(name, 0);
+         s++;
+        }
+    
+        public void printArray()
+    {
+        System.out.println(Arrays.deepToString(students));
+    }
+    
+    /**
+     * Print a report of all students with names, average grades, and
+     * number of zero grades.  The report is printed to
+     * <code>System.out</code>.
+     */
+    public void printReport()
+    {
+        // a while loop may be better here so we can more quickly
+        // stop printing the report when we find the empty spots in
+        // the array
+        for (Student s : students)
+            {
+                if (s != null)
+                    {
+                        System.out.println(s.getName() + " "
+                                           + " " + s.getAverage()
+                                           + " " + s.countZeros());
+                    }
+            }
+    }
+}
