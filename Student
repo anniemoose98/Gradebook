@@ -1,0 +1,96 @@
+public class Student
+{
+    /**
+     * The grades for this student.  The grade for assignment number
+     * i (numbered starting with 0) will be in array element i.
+     */
+    private int[] grades;
+
+    /**
+     * This student's name.
+     */
+    private String name;
+
+    /**
+     * Creates a student with the given name and number of assignments.
+     * The grades will be initialized to 0.
+     *
+     * @param name a string giving the name of the student
+     * @param assignments a positive integer giving the number of
+     *        assignments for this student
+     */
+    public Student(String name, int assignments)
+    {
+        this.name = name; // note this to specify field shadowed by argument
+        grades = new int[assignments];
+    }
+    
+    /**
+     * gives the given grade on the given assignment to this student.
+     * Assignments are numbered starting from 0.  If there was previously
+     * a grade for the given assignment, then that grade is overwritten.
+     *
+     * @param a a valid assignment index for this student
+     * @param g the grade for that assignment
+     */
+    public void addGrade(int a, int pE, int pT)
+    {
+        // validate assignment index
+        if (a < 0 || a >= grades.length)
+            {
+                throw new IllegalArgumentException("Illegal assignment index: " + a + "; must be between 0 and " + (grades.length - 1));
+            }
+        pT++;    
+        grades[a] = pE / pT;
+    }
+
+    /**
+     * Returns the average on all assignments for this student.
+     * Zero grades are included in the average.
+     *
+     * @return the average grade over all assignments for this student
+     */
+    public double getAverage()
+    {
+        int sum = 0;
+        for (int a = 0; a < grades.length; a++)
+            {
+                sum += grades[a];
+            }
+        return (double)sum / grades.length;     
+    }
+    public void setName (String studentName){
+        name = studentName;
+    }
+    /**
+     * Returns the name of this student.
+     *
+     * @return the name of this student
+     */
+    public String getName()
+    {
+        return name;
+    }
+    
+    /**
+     * Returns the number of zero grades for this student.
+     *
+     * @return the number of zero grades for this student
+     */
+    public int countZeros()
+    {
+        int count = 0;
+        // using the special form of for for iterating over all elements
+        // of an array -- can only use this when we are reading from the array
+        // and we don't need the index of the elements (although we could
+        // use the special form and keep track of the index ourselves)
+        for (double g : grades)
+            {
+                if (g == 0)
+                    {
+                        count++;
+                    }
+            }
+        return count;
+    }
+}
